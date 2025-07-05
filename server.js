@@ -19,9 +19,14 @@ app.use(express.json());
 
 // ✅ Routes
 const authRoutes = require('./routes/authRoutes');
-const taskRoutes = require('./routes/taskRoutes'); // ✅ Add this line
+const taskRoutes = require('./routes/taskRoutes');
 app.use('/api/auth', authRoutes);
-app.use('/api/tasks', taskRoutes); // ✅ Add this line
+app.use('/api/tasks', taskRoutes);
+
+// ✅ Ping route to prevent Render backend from sleeping
+app.get('/api/ping', (req, res) => {
+  res.send('pong');
+});
 
 // ⛓️ Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
